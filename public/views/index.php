@@ -16,6 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="../content/css/helpers.css">
 	<script type="text/javascript" src="../js/index.js"></script>
 	<script type="text/javascript" src="../js/services/newsService.js"></script>
+	<script type="text/javascript" src="../js/services/topicsService.js"></script>
 	<script type="text/javascript" src="../js/mainRoutes.js"></script>
 	<script type="text/javascript" src="../js/mainApp.js"></script>
 </head>

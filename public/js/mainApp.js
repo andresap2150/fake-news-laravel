@@ -1,23 +1,18 @@
-var app = angular.module('mainApp', ['mainRoutes', 'newsService', 'ngAnimate', 'toastr', 'ui.bootstrap']);
+var app = angular.module('mainApp', ['mainRoutes', 'newsService','topicsService', 'ngAnimate', 'toastr', 'ui.bootstrap']);
 
-app.controller('mainController', ['$scope', '$http', 'toastr', 'NewsService', function($scope, $http, toastr, NewsService) {
+app.controller('mainController', ['$scope', '$http', 'toastr', 'NewsService','TopicsService', function($scope, $http, toastr, NewsService, TopicsService) {
     $scope.lists = [];
-    //$scope.completedTodos = [];
+    $scope.allTopics = [];
     $scope.allNews = [];
     
     var initializeNews = function() {
-        /*TodoService.getActiveTodos().success(function (data) {
-            $scope.lists = data;
-            $scope.anyActiveTodos = $scope.lists.length;
-            console.log($scope.lists);
-        });*/
         NewsService.get().success(function(data) {
             $scope.allNews = data;
         });
-        /*TodoService.getAllCompletedTodos().success(function(data) {
-            $scope.completedTodos = data;
-            console.log('completed Todos',$scope.completedTodos);
-        });*/
+        TopicsService.get().success(function(data){
+            $scope.allTopics = data;
+            console.log($scope.allTopics);
+        });
     }
     
     initializeNews();
@@ -25,12 +20,18 @@ app.controller('mainController', ['$scope', '$http', 'toastr', 'NewsService', fu
     $scope.addNews = function() {
         var title = $scope.newsTitle;
         var content = $scope.newsContent;
+        var topicList = $scope.newsTopicsList;
 
-        NewsService.add(title,content).success(function(data){
+        NewsService.add(title,content,topicList).success(function(data){
             $scope.newsTitle = "";
             $scope.newsContent = "";
-            toastr.success('agregado con exito!!','Success');
-            //$scope.anyActiveTodos = true;
+            $scope.newsTopicsList= [];
+            /*var arr= [];
+            topicList.forEach(function(topicInfo){
+                arr.push(topicInfo.id);
+            });*/
+            
+            toastr.success('Succesfully added!!','Success');
 
             initializeNews();
             $scope.lists.push({
@@ -39,22 +40,7 @@ app.controller('mainController', ['$scope', '$http', 'toastr', 'NewsService', fu
                 content : content
             });
         }).error(function(){
-            toastr.error('MMM algo anda mal. Intente de nuevo mas tarde','Fail');
+            toastr.error('MMM something went wrong. please try again','Fail');
         });
-    }
-    /*$scope.done = function(list) {
-        console.log('hecho');
-        console.log(list);
-
-        if (list.IsDone) {
-            var todoIndex = $scope.lists.indexOf(list);
-
-            TodoService.update(list.id,list.IsDone,list.TodoName).success(function() {
-                $scope.anyActiveTodos = $scope.lists.length;
-
-                initializeTodos();
-                toastr.sucess('Se hizo un todo', 'Success');
-            });
-        }
-    }*/    
+    }    
 }]);

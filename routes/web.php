@@ -19,3 +19,8 @@ Route::group(['prefix'=>'news'],function(){
     //Route::get('/', 'NewsController@index');
     Route::resource('/','NewsController');
 });
+
+Route::group(['prefix'=>'topics'],function(){
+    //Route::get('/', 'NewsController@index');
+    Route::get('/','TopicsController@index');
+});

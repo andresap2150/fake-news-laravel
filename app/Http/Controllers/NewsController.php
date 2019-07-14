@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\News;
+use App\Topic;
 use Response;
 
 class NewsController extends Controller
@@ -13,8 +14,15 @@ class NewsController extends Controller
     }
 
     public function store(Request $request){
-        $news = new News($request->all());
+    	$temp = $request->all();
+    	unset($temp['topics']);
+        $news = new News($temp);
+
         $news -> save();
+
+        $topics = Topic::find($request->get('topics'));
+        $news -> topics()->attach($topics);
+
         return Response::json($news);
     }
 
