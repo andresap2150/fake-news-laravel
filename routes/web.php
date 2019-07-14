@@ -12,5 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::group(['prefix'=>'news'],function(){
+    //Route::get('/', 'NewsController@index');
+    Route::resource('/','NewsController');
 });
