@@ -13,5 +13,8 @@ class NewsTest extends TestCase
         $response = $this->get('/news');
 
         $response->assertStatus(200)->assertSee("Leonel Alvarez");
+
+        $response->assertJsonCount(3,null);
+
     }
 }
