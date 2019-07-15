@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\News;
-use App\Users;
+use App\User;
 
 class Topic extends Model
 {
@@ -17,6 +17,6 @@ class Topic extends Model
     }
 
     public function users(){
-    	return $this->belongsToMany(Users::class, 'user_topic');
+    	return $this->belongsToMany(User::class, 'user_topic');
     }
 }

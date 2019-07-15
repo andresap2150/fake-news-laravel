@@ -17,17 +17,21 @@ class NewsController extends Controller
     }
 
     public function store(Request $request){
-    	$temp = $request->all();
-    	unset($temp['topics']);
+        $temp = $request->all();
+        unset($temp['topics']);
         $news = new News($temp);
+        $topicsIdlist = $request->get('topics');
 
         $news -> save();
 
-        $topics = Topic::find($request->get('topics'));
+        $topics = Topic::find($topicsIdlist);
         $news -> topics()->attach($topics);
-        $users = User::whereHas('topics',function (Builder $query){
-            $query -> where('id', 'in', $request->get('topics'));
-        })->get();
+        
+        $users = [];
+        foreach($topics as $topic){
+            array_push($users, $topic->users());
+        }
+        
 
         foreach ($users as $user) {
             $user->notify(new NewsNotification());
