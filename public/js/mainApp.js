@@ -26,11 +26,7 @@ app.controller('mainController', ['$scope', '$http', 'toastr', 'NewsService','To
             $scope.newsTitle = "";
             $scope.newsContent = "";
             $scope.newsTopicsList= [];
-            /*var arr= [];
-            topicList.forEach(function(topicInfo){
-                arr.push(topicInfo.id);
-            });*/
-            
+           
             toastr.success('Succesfully added!!','Success');
 
             initializeNews();
