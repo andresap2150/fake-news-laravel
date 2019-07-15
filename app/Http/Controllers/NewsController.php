@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Notifications\newsNotification;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 use App\News;
 use App\Topic;
 use App\User;
@@ -27,15 +28,17 @@ class NewsController extends Controller
         $topics = Topic::find($topicsIdlist);
         $news -> topics()->attach($topics);
         
-        $users = [];
         foreach($topics as $topic){
-            array_push($users, $topic->users());
+            $usersArray = $topic->users()->get();
+            foreach ($usersArray as $tempUser) {
+                Log::debug($tempUser);
+                $tempUser->notify(new NewsNotification());
+            }           
+            
+            //Notification::send($tempUser, new NewsNotification());
         }
-        
-
-        foreach ($users as $user) {
-            $user->notify(new NewsNotification());
-        }
+         
+            
         return Response::json($news);
     }
 
