@@ -1,7 +1,6 @@
 # News subscription using Laravel and AngularJS
 
-This project means to implement a news notification system, using laravel 5.8 and angulasJS, it was inspired by [Create a To do app](https://codeburst.io/how-to-create-to-do-app-using-angularjs-and-laravel-5-d3cfde2d7aef)
-and [notification tutorial](https://itsolutionstuff.com/post/laravel-57-new-notification-system-tutorial-for-beginnerexample.html) for more advance reference look at this book [Laravel and AngularJS](https://leanpub.com/laravel-and-angularjs)
+This project means to implement a news notification system, using laravel 5.8 and angulasJS, it was inspired by [Create a To do app](https://codeburst.io/how-to-create-to-do-app-using-angularjs-and-laravel-5-d3cfde2d7aef) and [notification tutorial](https://itsolutionstuff.com/post/laravel-57-new-notification-system-tutorial-for-beginnerexample.html) for more advance reference look at this book [Laravel and AngularJS](https://leanpub.com/laravel-and-angularjs)
 
 ## Development enviroment
 
@@ -11,8 +10,16 @@ In mac you can use valet, but i don't use mac, i can´t tell you how to install 
 
 ## Run the code
 - Please clone this repo on your host share folder for homestead
-- update the .env file to match your database credentials 
-- In the guest machine run the migrations:
+- Connect to the guest machine using 
+```sh
+$ vagrant up
+```
+- Execute composer update to load external libreries
+```sh
+$ composer update
+```
+- create the .env file to match your database credentials and Aws ses config, you can use .env.example as a reference
+- run the migrations:
 ```sh
 $ php artisan migrate
 ```
