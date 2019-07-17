@@ -38,5 +38,5 @@ app.controller('mainController', ['$scope', '$http', 'toastr', 'NewsService','To
         }).error(function(){
             toastr.error('MMM something went wrong. please try again','Fail');
         });
-    }    
+    }   
 }]);
